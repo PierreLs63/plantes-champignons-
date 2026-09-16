@@ -8,6 +8,9 @@
 <title>Cueillette virtuelle — 10 enquêtes de terrain</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/basket.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap">
 <link rel="stylesheet" href="css/finale.css">
 </head>
 <body>
@@ -108,23 +111,22 @@
     </div>
 
     <div class="party" id="party">
-      <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <p class="kicker">Maintenant, place au vrai terrain !</p>
       <p class="lead">L'écran vous a appris les bons réflexes. Rien ne remplace pourtant une vraie loupe, une vraie odeur et un vrai spécimen entre les doigts.</p>
-      <div class="dateRow" id="dateRow">
-        <div class="cal" aria-hidden="true"><div class="calRings"><i></i><i></i></div><div class="calMonth">Octobre</div><div class="calDay">13</div></div>
-        <div class="dateTxt">
-          <span class="rdv">Rendez-vous le</span>
-          <span class="bigDate" id="bigDate">13 octobre</span>
-          <span class="expoName">Exposition botanique &amp; mycologique</span>
+      <div class="dancefloor" id="dancefloor">
+        <div class="disco" aria-hidden="true"></div>
+        <div class="crew" id="crewTop" aria-hidden="true"></div>
+        <div class="dateRow" id="dateRow">
+          <div class="cal" aria-hidden="true"><div class="calRings"><i></i><i></i></div><div class="calMonth">Octobre</div><div class="calDay">13</div></div>
+          <div class="dateTxt">
+            <span class="rdv">Rendez-vous le</span>
+            <span class="bigDate" id="bigDate">13 octobre</span>
+            <span class="expoName">Exposition botanique &amp; mycologique</span>
+            <span class="venue">📍 Hall de l'ISPB</span>
+          </div>
         </div>
+        <div class="crew" id="crewBot" aria-hidden="true"></div>
       </div>
-      <ul class="expoList">
-        <li><em>🔍</em><span>Manipulez de vraies loupes de terrain et observez les détails au microscope</span></li>
-        <li><em>👃</em><span>Sentez les essences réelles (farine, anis, ail) guidés par nos experts</span></li>
-        <li><em>💬</em><span>Échangez avec nos pharmaciens et mycologues pour cueillir en toute sécurité</span></li>
-      </ul>
-      <div class="dancefloor" id="dancefloor" aria-hidden="true"></div>
     </div>
 
     <div class="actions">
@@ -135,7 +137,6 @@
   </div>
 </section>
 
-<canvas id="confetti" hidden></canvas>
 
 <script src="js/draw.js"></script>
 <script src="js/art.js"></script>

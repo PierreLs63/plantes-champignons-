@@ -89,22 +89,22 @@ CUT.morille=(()=>{
   ${label('une seule cavité, du sommet au pied',288)}`;
 })();
 
-/* 4 — Gyromitre : intérieur cloisonné en multiples petites loges */
+/* 4 — Gyromitre : intérieur cloisonné en multiples petites loges ; pied creux */
 CUT.gyromitre=(()=>{
-  const ch=[[116,92,22,12,.3,1],[172,84,26,11,-.2,2],[96,134,13,20,.1,3],[146,122,22,11,.4,4],[200,124,15,22,-.3,5],[122,164,26,11,-.1,6],[178,160,22,12,.2,7],[150,94,9,7,0,8],[214,96,10,14,.5,9],[84,100,9,12,-.4,10],[150,150,10,6,0,11],[226,154,8,10,.2,12],[76,160,8,10,-.2,13]];
-  const st=[[150,202,13,8,0,21],[137,226,9,8,.3,22],[163,230,10,7,-.2,23],[150,252,14,6,0,24]];
+  const ch=[[116,88,20,11,.3,1],[172,78,24,10,-.2,2],[100,122,12,18,.1,3],[146,112,20,10,.4,4],[196,116,14,20,-.3,5],[122,150,22,10,-.1,6],[174,148,20,11,.2,7],[150,86,8,6,0,8],[210,90,9,12,.5,9],[92,92,8,11,-.4,10],[150,138,9,5,0,11],[218,142,7,9,.2,12],[84,146,7,9,-.2,13]];
+  const st=[[150,210,8,14,0,21],[150,236,7,12,.15,22],[150,258,8,10,-.1,23]];
   const cham=a=>a.map(([x,y,rx,ry,rot,sd])=>`<path d="${blob(x,y,rx,ry,sd,9,.28,rot)}"/>`).join('');
   const R=rng(5);
   const threads=rep(16,i=>{const [x,y,rx,ry]=ch[i%ch.length];return `<path d="M${r1(x-rx*.7)} ${r1(y+(R()-.5)*ry)}Q${x} ${r1(y+(R()-.5)*ry*1.5)} ${r1(x+rx*.7)} ${r1(y+(R()-.5)*ry)}" stroke="#fff" stroke-width=".6" fill="none" opacity=".5"/>`});
-  const folds=rep(12,i=>{const a=ch[i%ch.length],b=ch[(i*5+3)%ch.length];return `<path d="M${a[0]} ${a[1]}Q${r1((a[0]+b[0])/2+(R()-.5)*30)} ${r1((a[1]+b[1])/2+(R()-.5)*30)} ${b[0]} ${b[1]}" stroke="#8d4a24" stroke-width="1.8" fill="none" opacity=".35"/>`});
+  const folds=rep(12,i=>{const a=ch[i%ch.length],b=ch[(i*5+3)%ch.length];return `<path d="M${a[0]} ${a[1]}Q${r1((a[0]+b[0])/2+(R()-.5)*30)} ${r1((a[1]+b[1])/2+(R()-.5)*30)} ${b[0]} ${b[1]}" stroke="#5a3018" stroke-width="1.8" fill="none" opacity=".4"/>`});
   return `<defs>${RG('fl',[[0,'#f7ede2'],[1,'#dcc4b0']],.4,.35,.8)}${RG('ch',[[0,'#dbc6b2'],[.6,'#a0846e'],[1,'#654a38']],.5,.58,.65)}${LG('stem',[[0,'#fbf1e6'],[1,'#dcc7b4']],0,0,1,0)}</defs>
   ${board}
-  <ellipse cx="150" cy="266" rx="54" ry="9" fill="#2a1a0a" opacity=".45" filter="${U('b2')}"/>
-  <path d="M122 172C116 210 112 242 108 260C110 274 190 274 192 260C188 242 184 210 178 172Z" fill="#c4a78e"/>
-  <path d="M125 172C120 210 116 242 112 259C114 270 186 270 188 259C184 242 180 210 175 172Z" fill="${U('stem')}" filter="${U('fiber')}"/>
+  <ellipse cx="150" cy="266" rx="40" ry="8" fill="#2a1a0a" opacity=".45" filter="${U('b2')}"/>
+  <path d="M134 160C128 200 126 242 132 262C134 274 166 274 168 262C174 242 172 200 166 160Z" fill="#c4a78e"/>
+  <path d="M138 160C132 200 130 242 136 260C138 270 162 270 164 260C170 242 168 200 162 160Z" fill="${U('stem')}" filter="${U('fiber')}"/>
   <g fill="${U('ch')}" filter="${U('cav')}">${cham(st)}</g>
-  <path d="${gyroCap}" fill="#6a2c10"/>
-  <path d="${gyroCap}" transform="translate(150 124) scale(.95) translate(-150 -124)" fill="${U('fl')}" filter="${U('grain')}"/>
+  <path d="${gyroCap}" fill="#4a2410"/>
+  <path d="${gyroCap}" transform="translate(150 110) scale(.94) translate(-150 -110)" fill="${U('fl')}" filter="${U('grain')}"/>
   ${folds}
   <g fill="${U('ch')}" filter="${U('cav')}">${cham(ch)}</g>
   ${threads}

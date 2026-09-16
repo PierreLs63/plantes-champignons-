@@ -16,14 +16,20 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;line-height:1.15}
 [hidden]{display:none!important}
 
 /* ---------- Décor ---------- */
-#forest{position:fixed;inset:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#forest{position:fixed;inset:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:none}
 #forest::-webkit-scrollbar{display:none}
-#world{position:relative;height:100%}
+#world{position:relative;height:100%;overflow:hidden}
 .layer{position:absolute;inset:0;will-change:transform}
 .layer svg{width:100%;height:100%;display:block}
 #lFront{z-index:4;pointer-events:none}
 .spec{position:absolute;transform:translateX(-50%);background:none;padding:0;z-index:3;transition:opacity .6s,transform .6s}
-.spec svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 7px rgba(0,0,0,.34))}
+.spec svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 7px rgba(0,0,0,.34));
+  transform-origin:50% 92%;transition:transform .25s,filter .25s}
+/* toute la plante réagit, pas seulement le halo au pied */
+.spec:hover svg,.spec:focus-visible svg{transform:scale(1.06) translateY(-4px);
+  filter:drop-shadow(0 0 10px rgba(255,246,200,.75)) drop-shadow(0 10px 8px rgba(0,0,0,.34))}
+.spec:active svg{transform:scale(.97);transition-duration:.08s}
+.spec:focus-visible{outline:none}
 .spec::after{content:"";position:absolute;left:50%;bottom:2%;width:60%;height:15%;transform:translateX(-50%);
   border-radius:50%;border:2px solid rgba(252,252,245,.7);animation:halo 2.8s ease-out infinite;pointer-events:none}
 .spec.done{opacity:.35;pointer-events:none} .spec.done::after{display:none}
