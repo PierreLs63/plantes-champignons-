@@ -102,13 +102,25 @@ function next(){$('verdict').classList.remove('open');
     if(el)goTo(Math.max(0,el.offsetLeft-forest.clientWidth/2),true)}}
 
 /* ===================== BILAN ===================== */
+/* Un niveau par tranche de 10 points (index = points / 10), plus un pour les scores négatifs */
+const LEVELS=Object.assign([
+  ['🍂 Cueilleur imprudent','Autant de pièges évités que de pièges tombés dans le panier. En vrai, cela ne pardonne pas : à revoir avec un expert.'],
+  ['🌱 Pousse timide','Quelques bons réflexes émergent, mais trop d’erreurs graves. Ne cueillez jamais sans avis qualifié.'],
+  ['🥾 Randonneur distrait','Vous commencez à regarder de plus près, mais les sosies toxiques vous ont encore piégé.'],
+  ['🔎 Curieux de nature','L’envie d’observer est là. Il manque encore de la méthode pour trancher sans risque.'],
+  ['📖 Apprenti naturaliste','Vous connaissez quelques critères clés. Utilisez-les tous, systématiquement, avant de décider.'],
+  ['🌿 Promeneur averti','Une bonne moitié de décisions justes. Quelques confusions dangereuses restent à corriger.'],
+  ['🧺 Amateur prudent','Bonnes connaissances, mais quelques hésitations et des pièges non détectés.'],
+  ['🍃 Cueilleur éclairé','Vos observations sont solides. Encore un ou deux réflexes à ancrer pour être sûr de vous.'],
+  ['🌳 Botaniste confirmé','Très bon niveau : la loupe, la coupe et l’odorat n’ont presque plus de secret pour vous.'],
+  ['🎓 Mycologue en herbe','Presque parfait ! Aucun piège ne vous a eu, seule une prudence de trop vous sépare du sans-faute.'],
+  ['🏆 Expert botaniste','Sans-faute ! Vous maîtrisez les critères de sécurité de terrain. Bravo !'],
+],{neg:['⚠️ Danger en forêt','Plusieurs intoxications graves évitées de justesse… à l’écran seulement. La pratique est à renforcer avant toute cueillette.']});
 function showEnd(){
   const p=state.pts;
   $('final').innerHTML=`${p} <span>/ 100</span>`;
   $('bOk').textContent=state.ok;$('bZero').textContent=state.zero;$('bKo').textContent=state.ko;
-  const lv=p>=80?['🏆 Expert botaniste','Vos cinq sens sont aiguisés. Vous maîtrisez les critères de sécurité de terrain.']
-        :p>=50?['🧺 Amateur prudent','Bonnes connaissances, mais quelques hésitations et des pièges non détectés.']
-        :['⚠️ Danger en forêt','Plusieurs intoxications graves évitées de justesse. La pratique est à renforcer.'];
+  const lv=p<0?LEVELS.neg:LEVELS[Math.min(10,Math.floor(p/10))];
   $('level').textContent=lv[0];$('levelTxt').textContent=lv[1];
   const errs=S.map((s,i)=>({s,r:state.done[i]})).filter(o=>o.r!=='ok');
   $('review').hidden=true;$('reviewBtn').hidden=!errs.length;

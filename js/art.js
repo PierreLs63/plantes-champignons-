@@ -50,12 +50,30 @@ ART.ail=(()=>{
 
 /* ---------------------------------------------------------------------
    2 — COLCHIQUE : touffe de feuilles rigides, SANS PÉTIOLE, engainées à la base,
-   capsule de fruit au centre au printemps
+   capsule de fruit au centre au printemps, fleurs mauves en coupe (6 tépales) sur long tube blanc
    --------------------------------------------------------------------- */
 ART.colchique=(()=>{
   const prof=t=>t<.12?.62+.38*(t/.12):t<.8?1:Math.sqrt(Math.max(0,1-Math.pow((t-.8)/.2,2)));
   const defs=`<defs>${LG('lt',[[0,'#8fce6c'],[1,'#2f7a2e']],0,0,1,1)}${LG('dk',[[0,'#3f8a36'],[1,'#164d1a']],0,0,1,1)}
-    ${RG('cap',[[0,'#c4d884'],[.55,'#6d8c3c'],[1,'#3c5522']],.36,.3,.7)}${LG('sh',[[0,'#e7ecd0'],[.5,'#c5d3a0'],[1,'#8ea468']],0,0,1,0)}</defs>`;
+    ${RG('cap',[[0,'#c4d884'],[.55,'#6d8c3c'],[1,'#3c5522']],.36,.3,.7)}${LG('sh',[[0,'#e7ecd0'],[.5,'#c5d3a0'],[1,'#8ea468']],0,0,1,0)}
+    ${LG('tpF',[[0,'#e9b8e0'],[.55,'#c77cc0'],[1,'#f4e6f0']],0,0,0,1)}${LG('tpB',[[0,'#b86aae'],[.6,'#95488e'],[1,'#d9b4d4']],0,0,0,1)}
+    ${LG('tube',[[0,'#fbf6f4'],[.5,'#ece3e6'],[1,'#c9bcc2']],0,0,1,0)}</defs>`;
+  /* Fleur : coupe à 6 tépales (3 derrière, 3 devant), étamines orangées, long tube blanc sortant du sol */
+  const tepal=(x,y,a,len,w,fill)=>`<path transform="translate(${x} ${y}) rotate(${a})" d="M0 0C${-w} ${r1(-len*.25)} ${r1(-w*1.05)} ${r1(-len*.8)} 0 ${-len}C${r1(w*1.05)} ${r1(-len*.8)} ${w} ${r1(-len*.25)} 0 0Z" fill="${fill}" stroke="#7a3a74" stroke-width=".5"/>
+    <path transform="translate(${x} ${y}) rotate(${a})" d="M0 -2L0 ${r1(-len*.85)}" stroke="#a5579d" stroke-width=".6" opacity=".6"/>`;
+  /* le tube part du cœur de la touffe (caché par la gaine) et s'arque vers la fleur */
+  const flower=(bx,x,y,s,lean)=>{const tube=`M${bx} 270C${bx} ${r1(y+50)} ${r1(x-lean*.3)} ${r1(y+34)} ${x} ${y}`;
+    return `<path d="${tube}" fill="none" stroke="#9aa79a" stroke-width="${r1(4.4*s+1)}" stroke-linecap="round"/>
+    <path d="${tube}" fill="none" stroke="${U('tube')}" stroke-width="${r1(4.4*s)}" stroke-linecap="round"/>
+    <path d="${tube}" transform="translate(-.8 0)" fill="none" stroke="#fff" stroke-width=".9" opacity=".6"/>
+    <g transform="translate(${x} ${y}) rotate(${r1(lean*.6)}) scale(${s})">
+      ${tepal(0,4,-24,40,9,U('tpB'))}${tepal(0,4,22,40,9,U('tpB'))}${tepal(0,4,0,42,10,U('tpB'))}
+      ${rep(6,i=>`<path d="M${-5+i*2} -6L${-7+i*2.8} -22" stroke="#e8dcc0" stroke-width=".8"/><ellipse cx="${-7+i*2.8}" cy="-23.5" rx="1.1" ry="2.4" fill="#e89a2a"/>`)}
+      <path d="M0 -4L0 -28" stroke="#f3eee8" stroke-width=".7"/>
+      ${tepal(-1,4,-12,36,10,U('tpF'))}${tepal(1,4,12,36,10,U('tpF'))}${tepal(0,5,0,30,8.5,U('tpF'))}
+      <path d="M-14 -24C-10 -30 -6 -32 -2 -32" fill="none" stroke="#fff" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+      <path d="M-5 4C-3 8 3 8 5 4L4 -2L-4 -2Z" fill="#e6dce2"/>
+    </g>`};
   const leaf=(a,len,w,bend,bx)=>{const g=leafGeo(len,w,bend,prof,26,.5);
     return `<g transform="translate(${bx} 282) rotate(${a})">${leafSVG(g,{lt:U('lt'),dk:U('dk'),veins:[.18,.36,.54,.72,.88],vein:'#12400f',vo:.3,vw:.7,edge:'#0f3a10',rib:'#0f3d10',ribw:1.8})}
       <path d="${g.line(1,.1,.05,.95)}" fill="none" stroke="#b6e79a" stroke-width="1" opacity=".45"/></g>`};
@@ -70,6 +88,7 @@ ART.colchique=(()=>{
     <path d="M-2 -32l-3 -7M0 -32l0 -8M2 -32l3 -7" stroke="#6a5a30" stroke-width="1.2" stroke-linecap="round"/>
   </g>
   ${leaf(-19,188,24,-20,144)}${leaf(22,182,23,18,156)}
+  ${flower(143,112,192,1.1,-8)}${flower(147,130,222,.85,-3)}${flower(157,188,198,1.05,8)}
   <path d="M130 286C130 268 136 252 142 246L158 246C164 252 170 268 170 286Z" fill="${U('sh')}"/>
   <path d="M132 272C142 262 158 256 168 258M134 282C146 270 160 268 169 270M140 250C146 256 156 258 162 250" fill="none" stroke="#7f955a" stroke-width="1" opacity=".7"/>
   ${G(grass(44,150,290,110,34,24,['#7aa54a','#94bd5a','#5f8c36']))}`;
@@ -132,39 +151,100 @@ ART.morille=(()=>{
 })();
 
 /* ---------------------------------------------------------------------
-   4 — GYROMITRE : chapeau lobé CÉRÉBRIFORME, circonvolutions sinueuses, pas d'alvéoles
+   4 — GYROMITRE : tête globuleuse bosselée et asymétrique, plis CÉRÉBRAUX
+   sinueux (crêtes plus foncées que les fossettes), marge plus pâle et
+   irrégulière, hyménium crème bien visible dessous, pied fin et creux (cou).
    --------------------------------------------------------------------- */
-const gyroCap=(()=>{const pts=[];
-  for(let i=0;i<30;i++){const a=i/30*Math.PI*2,k=1+.07*Math.sin(3*a+1)+.05*Math.sin(5*a+2)+.035*Math.sin(9*a);
-    let x=150+Math.cos(a)*100*k,y=124+Math.sin(a)*80*k;if(y>180)y=180+(y-180)*.55;pts.push([x,y])}
+const GYRO={cx:150,cy:110,rx:74,ry:66};
+/* Rayon du chapeau selon l'angle : lobes arrondis, jamais symétriques */
+const gyroR=a=>1+.06*Math.sin(3*a+1.1)+.045*Math.sin(5*a+.3)+.025*Math.sin(8*a+2.2)
+  +.05*Math.exp(-((a+1.5)**2)*6)                                  // apex légèrement pointu
+  -.035*Math.max(0,Math.sin(a))*(1+Math.sin(11*a));              // marge basse ondulée
+const gyroCap=(()=>{const {cx,cy,rx,ry}=GYRO,pts=[];
+  for(let i=0;i<64;i++){const a=i/64*Math.PI*2,k=gyroR(a);const lo=Math.max(0,Math.sin(a));pts.push([cx+Math.cos(a)*rx*k*(1+.1*lo),cy+Math.sin(a)*ry*k*(1-.1*lo)])}
   return smooth(pts)})();
 ART.gyromitre=(()=>{
-  const R=rng(23);let grooves='';
-  for(let j=0;j<30;j++){
-    let x=150+(R()*2-1)*82,y=124+(R()*2-1)*62,h=R()*Math.PI*2,turn=0;const pts=[[x,y]],n=8+Math.floor(R()*12);
-    for(let s=0;s<n;s++){turn=turn*.6+(R()-.5)*1.1;h+=turn;x+=Math.cos(h)*7;y+=Math.sin(h)*7;
-      if(((x-150)/92)**2+((y-124)/72)**2>1){h+=Math.PI*.8;x+=Math.cos(h)*7;y+=Math.sin(h)*7}
-      pts.push([x,y])}
-    const d=`M${P(pts[0])}${curve(pts)}`;
-    grooves+=`<path d="${d}" stroke="#2a0f04" stroke-width="6.5" opacity=".7" filter="${U('b1')}"/>
-      <path d="${d}" stroke="#1c0801" stroke-width="2" opacity=".55"/>
-      <path d="${d}" transform="translate(1.8 2.6)" stroke="#e39a5c" stroke-width="1.5" opacity=".42" filter="${U('b1')}"/>
-      <path d="${d}" transform="translate(-4 -4)" stroke="#c57a40" stroke-width="3.5" opacity=".22" filter="${U('b1')}"/>`;
+  const {cx,cy,rx,ry}=GYRO,R=rng(19);
+  /* Plis cérébraux : crêtes qui poussent dans un champ de flux sinueux et
+     s'arrêtent avant d'en toucher une autre → labyrinthe sans croisement.
+     Générés à plat (u,v) puis projetés sur une sphère (compression au bord). */
+  const SP=.058,ST=.02,cell=SP,grid=new Map(),key=(u,v)=>Math.floor(u/cell)+','+Math.floor(v/cell);
+  const flow=(u,v)=>2.1*Math.sin(1.9*u+.7)+1.8*Math.cos(2.3*v-.4)+1.2*Math.sin(3.4*(u-v)+1.3)+.9*Math.cos(4.1*u*v);
+  const free=(u,v,id,idx)=>{const gu=Math.floor(u/cell),gv=Math.floor(v/cell);
+    for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++){const c=grid.get((gu+i)+','+(gv+j));if(!c)continue;
+      for(const p of c)if((p[2]!==id||p[3]<idx-7)&&Math.hypot(p[0]-u,p[1]-v)<SP)return false}
+    return true};
+  const inside=(u,v)=>u*u+v*v<1.3;
+  const ridges=[];
+  for(let s=0;s<6000;s++){
+    const u0=(R()*2-1)*1.15,v0=(R()*2-1)*1.15,id=ridges.length;
+    if(!inside(u0,v0)||!free(u0,v0,-1,0))continue;
+    let u=u0,v=v0,ang=flow(u,v)+R()*6.28,turn=0;const pts=[[u,v]];
+    for(let k=1;k<110;k++){
+      turn=turn*.7+(R()-.5)*.9;
+      ang+=(flow(u,v)-ang)*.08+turn;
+      const nu=u+Math.cos(ang)*ST,nv=v+Math.sin(ang)*ST;
+      if(!inside(nu,nv)||!free(nu,nv,id,k))break;
+      u=nu;v=nv;pts.push([u,v]);
+    }
+    if(pts.length<3)continue;
+    pts.forEach((p,i)=>{const kk=key(p[0],p[1]);if(!grid.has(kk))grid.set(kk,[]);grid.get(kk).push([p[0],p[1],id,i])});
+    ridges.push(pts);
   }
-  return `<defs>${RG('cap',[[0,'#b86a33'],[.55,'#7f3b19'],[1,'#4a1e0a']],.4,.34,.72)}
-    ${LG('vol',[[0,'#ffd9a8',.22],[.4,'#fff',0],[.65,'#000',0],[1,'#140500',.6]],0,0,1,.6)}
-    ${LG('stem',[[0,'#fbf0e4'],[.5,'#e8d3c0'],[1,'#b99c83']],0,0,1,0)}
+  const proj=([u,v])=>{const lon=u*1.32,lat=v*1.3,cl=Math.cos(Math.min(1.5,Math.abs(lat)));
+    return [cx+rx*1.05*Math.sin(Math.max(-1.55,Math.min(1.55,lon)))*cl,cy+ry*1.05*Math.sin(Math.max(-1.5,Math.min(1.5,lat))),
+      Math.max(0,Math.cos(Math.min(1.55,Math.abs(lon)))*cl)]};
+  let shade='',body='',hl='';
+  ridges.forEach(pts=>{
+    const q=pts.map(proj),f=q.reduce((s,p)=>s+p[2],0)/q.length,w=r1((4.6+R()*1.2)*(.4+.6*Math.sqrt(f)));
+    const d=`M${P(q[0])}${curve(q)}`;
+    shade+=`<path d="${d}" stroke-width="${r1(w+1.2)}"/>`;
+    body+=`<path d="${d}" stroke-width="${w}" stroke="${['#3e1a0e','#4a2314','#351509'][Math.floor(R()*3)]}"/>`;
+    hl+=`<path d="${d}" stroke-width="${r1(w*.3)}"/>`;
+  });
+  /* Hyménium : face inférieure crème, lisse à micro-ridules radiales */
+  const hc=[cx+2,171];
+  const hp=[];for(let i=0;i<40;i++){const a=i/40*Math.PI*2;hp.push([hc[0]+Math.cos(a)*44*(1+.05*Math.sin(5*a+.6)),hc[1]+Math.sin(a)*11*(1+.08*Math.sin(3*a))])}
+  const ridules=rep(34,i=>{const a=.12+i/33*(Math.PI-.24),x=hc[0]+Math.cos(a)*41,y=hc[1]+Math.sin(a)*10;
+    return `<path d="M${r1(hc[0]+Math.cos(a)*20)} ${r1(hc[1]+Math.sin(a)*4.5)}L${r1(x)} ${r1(y)}" stroke="#bfae84" stroke-width=".6" opacity=".6"/>`});
+  /* Pied : fin, légèrement renflé, évasé sous le chapeau, rosé à la base */
+  const sw=y=>{const t=(y-164)/112;return 25-9*Math.min(1,t/.3)**.8+3*Math.sin(Math.PI*Math.max(0,(t-.3)/.7))+(t>.88?(t-.88)*30:0)};
+  const sL=[],sR=[];for(let y=164;y<=276;y+=6){const lean=Math.sin((y-164)/112*2.4)*3;sL.push([cx-sw(y)+lean,y]);sR.push([cx+sw(y)+lean,y])}
+  const stem=`M${P(sL[0])}${curve(sL)}C${cx-16} 284 ${cx+16} 284 ${P(sR[sR.length-1])}${curve(sR.slice().reverse())}Z`;
+  const grooves=rep(7,i=>{const o=(i-3)*3.2+(i%2?.8:-.8);return `<path d="M${r1(cx+o*1.4)} 176C${r1(cx+o*.9)} 206 ${r1(cx+o*1.05+2)} 240 ${r1(cx+o*1.2+1)} 272" fill="none" stroke="${i%2?'#b7ab98':'#fffaf0'}" stroke-width="${i%2?1.1:.9}" opacity="${i%2?.55:.5}"/>`});
+  return `<defs>${RG('cap',[[0,'#a4633f'],[.45,'#84472a'],[.8,'#62301a'],[1,'#3e1c0d']],.4,.34,.72)}
+    ${LG('margin',[[0,'#c9b8a0',0],[.62,'#c9b8a0',0],[.86,'#bfae96',.38],[1,'#d8cbb4',.62]],0,0,0,1)}
+    ${LG('vol',[[0,'#ffe8d0',.26],[.36,'#fff',0],[.62,'#000',0],[1,'#0e0402',.6]],0,0,1,.55)}
+    ${RG('hym',[[0,'#8d7c5c'],[.3,'#d6c69c'],[.6,'#f1e7c4'],[1,'#fbf5de']],.5,.2,.75)}
+    ${LG('stem',[[0,'#fbf7ee'],[.35,'#efe7d8'],[.75,'#d6cbb8'],[1,'#a99c88']],0,0,1,0)}
+    ${LG('pink',[[0,'#e6b4aa',0],[.7,'#e0aca2',0],[1,'#d8a39a',.55]],0,0,0,1)}
     <clipPath id="§clip"><path d="${gyroCap}"/></clipPath></defs>
   ${G(`<ellipse cx="150" cy="286" rx="122" ry="17" fill="#3a2a16" opacity=".6" filter="${U('b5')}"/><ellipse cx="150" cy="284" rx="104" ry="11" fill="#b99a6a" opacity=".55" filter="${U('b2')}"/>`+
     rep(70,i=>{const R2=rng(i*7+1),x=40+R2()*220,y=276+R2()*16,a=R2()*3.14,l=8+R2()*8;return `<path d="M${r1(x)} ${r1(y)}l${r1(Math.cos(a)*l)} ${r1(Math.sin(a)*l*.35)}" stroke="${['#9a6a3a','#b88a52','#7a5028'][i%3]}" stroke-width="1"/>`})+
     `<g transform="translate(238 270) rotate(-18)"><ellipse rx="18" ry="11" fill="#6b4524"/>${rep(12,i=>`<path d="M${-15+i*2.6} ${i%2?-8:-4}q3 -3 6 0q-3 6 -6 0" fill="#8a5c30" stroke="#4a2c12" stroke-width=".6"/>`)}</g>`)}
-  <path d="M122 176C116 212 112 244 108 266C110 282 190 282 192 266C188 244 184 212 178 176Z" fill="${U('stem')}" filter="${U('fiber')}"/>
-  ${[[128,.8],[142,1],[158,.9],[172,.8]].map(([x,o])=>`<path d="M${x} 196C${x-5} 220 ${x+4} 244 ${x-2} 272" fill="none" stroke="#8e7058" stroke-width="3.5" opacity="${o*.45}" filter="${U('b1')}"/><path d="M${x+2} 196C${x-3} 220 ${x+6} 244 ${x} 272" fill="none" stroke="#fff" stroke-width="1" opacity="${o*.4}"/>`).join('')}
-  <ellipse cx="150" cy="190" rx="44" ry="10" fill="#4b2c18" opacity=".6" filter="${U('b2')}"/>
+  <path d="${smooth(hp)}" fill="${U('hym')}" filter="${U('grain')}"/>
+  ${ridules}
+  <ellipse cx="${hc[0]}" cy="${hc[1]+2}" rx="26" ry="6" fill="#4a3620" opacity=".5" filter="${U('b2')}"/>
+  <path d="${smooth(hp)}" fill="none" stroke="#a8966c" stroke-width=".9" opacity=".8"/>
+  <path d="${stem}" fill="${U('stem')}" filter="${U('fiber')}"/>
+  <path d="${stem}" fill="${U('pink')}"/>
+  ${grooves}
+  <path d="M${cx-7} 190C${cx-9} 218 ${cx-7} 246 ${cx-5} 268" fill="none" stroke="#fff" stroke-width="4" opacity=".35" filter="${U('b1')}"/>
+  <path d="M${cx-26} 172Q${cx} 186 ${cx+28} 172L${cx+26} 166Q${cx} 174 ${cx-24} 166Z" fill="#5a4630" opacity=".45" filter="${U('b2')}"/>
+  <path d="${stem}" fill="none" stroke="#8f826c" stroke-width=".9" opacity=".6"/>
   <path d="${gyroCap}" fill="${U('cap')}" filter="${U('grain')}"/>
-  <g clip-path="url(#§clip)" fill="none" stroke-linecap="round">${grooves}</g>
-  <path d="${gyroCap}" fill="${U('vol')}"/>
-  <path d="${gyroCap}" fill="none" stroke="#2a0e03" stroke-width="2" opacity=".5"/>
+  <g clip-path="url(#§clip)">
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#1a0804" opacity=".55" transform="translate(1 1.8)">${shade}</g>
+      <g>${body}</g>
+      <g stroke="#9c5f40" opacity=".55" transform="translate(-.7 -1)">${hl}</g>
+    </g>
+    <path d="${gyroCap}" fill="${U('vol')}"/>
+    <path d="${gyroCap}" fill="${U('margin')}"/>
+  </g>
+  <path d="${gyroCap}" fill="none" stroke="#24100a" stroke-width="1.6" opacity=".6"/>
+  <path d="M${cx-60} ${cy+44}C${cx-40} ${cy+66} ${cx+40} ${cy+68} ${cx+62} ${cy+42}" fill="none" stroke="#e2d4ba" stroke-width="1.4" opacity=".55" clip-path="url(#§clip)"/>
+  <path d="M${cx-54} ${cy-20}C${cx-48} ${cy-44} ${cx-28} ${cy-60} ${cx-8} ${cy-64}" fill="none" stroke="#ffe2c4" stroke-width="5" stroke-linecap="round" opacity=".16" filter="${U('b2')}"/>
   ${G(litter(91,150,288,90,5,false))}`;
 })();
 
