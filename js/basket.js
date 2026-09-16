@@ -59,9 +59,11 @@ const Basket=(()=>{
   })}
   async function add(i,fromRect){
     if(picks.includes(i))return;
-    if(fromRect&&!reduced)await fly(i,fromRect);
+    root.classList.add('catch');   // le panier remonte pour recevoir la récolte
+    if(fromRect&&!reduced){await new Promise(r=>setTimeout(r,200));await fly(i,fromRect)}
     picks.push(i);render(i);
     root.classList.remove('bump');void root.offsetWidth;root.classList.add('bump');
+    setTimeout(()=>root.classList.remove('catch'),900);
   }
   function setOpen(v){open=v;root.classList.toggle('open',v);btn.setAttribute('aria-expanded',v);$('tray').setAttribute('aria-hidden',!v);render()}
   btn.addEventListener('click',()=>setOpen(!open));

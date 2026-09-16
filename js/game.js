@@ -14,7 +14,7 @@ function openInspect(i){
   showArt(ART,s.k);
   loupe.classList.remove('on');scent.classList.remove('on');stage.classList.remove('grab');
   $('pStep').textContent=`Spécimen ${i+1} sur ${S.length}`;
-  $('pTitle').textContent=s.title;$('intro-desc').textContent=s.desc;
+  $('pTitle').textContent=s.title;
   $('stageCap').textContent='Choisissez un outil pour examiner le spécimen';
   notes.innerHTML=`<li class="ph">Vos indices s'afficheront ici, au fil de l'enquête.</li>`;
   $('tools').innerHTML=TOOLS.map(([k,e,n,d])=>s.t[k]?
