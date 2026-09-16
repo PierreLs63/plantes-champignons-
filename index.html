@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Cueillette virtuelle — 10 enquêtes de terrain</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/basket.css">
+<link rel="stylesheet" href="css/finale.css">
+</head>
+<body>
+
+<div id="forest"><div id="world">
+  <div class="layer" id="lFar"></div>
+  <div class="layer" id="lMid"></div>
+  <div class="layer" id="lNear"></div>
+  <div class="layer" id="lFront"></div>
+</div></div>
+
+<header id="hud">
+  <h1>Cueillette virtuelle</h1>
+  <div id="tracker" aria-live="polite"><span id="score">0 pt</span><span id="dots"></span></div>
+</header>
+<div id="hint">Faites glisser le décor pour avancer, puis touchez un spécimen</div>
+<div id="flash"></div>
+
+<!-- Panier -->
+<div id="basket" class="hidden">
+  <div id="tray" aria-hidden="true">
+    <div class="trayHead"><h3>Mon panier</h3><span id="trayCount"></span></div>
+    <ul id="trayList"></ul>
+  </div>
+  <button id="basketBtn" aria-expanded="false" aria-controls="tray">
+    <svg id="bBack" viewBox="0 0 240 180" aria-hidden="true"></svg>
+    <div id="bItems"></div>
+    <svg id="bFront" viewBox="0 0 240 180" aria-hidden="true"></svg>
+    <span id="bCount" hidden>0</span>
+    <span id="bTag">Mon panier <b>▴</b></span>
+  </button>
+</div>
+
+<section class="overlay open" id="intro" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <h2>Dix spécimens, dix décisions</h2>
+    <p>Du sous-bois à l'alpage, dix trouvailles vous attendent le long du chemin : cinq trésors comestibles et cinq sosies toxiques. Examinez chacune avec vos outils de terrain, puis tranchez : dans le panier, ou on passe son chemin ?</p>
+    <ul class="rules">
+      <li><b class="pos">+10</b><span>Bonne décision : récolter un comestible ou laisser un toxique</span></li>
+      <li><b class="neu">0</b><span>Excès de prudence : laisser un bon comestible</span></li>
+      <li><b class="neg">−10</b><span>Erreur grave : récolter une espèce toxique ou mortelle</span></li>
+    </ul>
+    <button class="btn btn-main" id="startBtn">Entrer dans le sous-bois</button>
+    <p class="small" style="margin-top:22px">Jeu pédagogique. Il ne remplace jamais l'avis d'un mycologue ou d'un pharmacien.</p>
+  </div>
+</section>
+
+<section class="overlay" id="inspect" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <div id="stage">
+      <div id="loupe"><div class="inner"></div><div class="cross"></div></div>
+      <div id="scent"><div class="note"></div></div>
+      <div id="stageCap"></div>
+    </div>
+    <div id="panel">
+      <p class="eyebrow" id="pStep"></p>
+      <h2 id="pTitle"></h2>
+      <p id="intro-desc"></p>
+      <div id="tools"></div>
+      <div id="notesWrap">
+        <div id="notesHead"><span>Indices relevés</span><span id="notesCount"></span></div>
+        <ul id="notes" aria-live="polite"></ul>
+        <button id="notesMore" aria-label="Voir les indices suivants" hidden>↓</button>
+      </div>
+      <div class="choices">
+        <button class="btn btn-pick" id="pickBtn">Récolter</button>
+        <button class="btn btn-leave" id="leaveBtn">Laisser</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="overlay" id="verdict" role="dialog" aria-modal="true" aria-live="assertive">
+  <div class="sheet" id="vSheet">
+    <div class="vh"><div><h2 id="vTitle"></h2><p id="vSub"></p></div><div class="pts" id="vPts"></div></div>
+    <div class="vb">
+      <p id="vName" style="font-weight:600;margin-bottom:2px"></p>
+      <p class="latin" id="vLatin"></p>
+      <p id="vMain"></p>
+      <p class="why" id="vWhy"></p>
+      <button class="btn btn-main" id="nextBtn" style="width:100%">Spécimen suivant</button>
+    </div>
+  </div>
+</section>
+
+<section class="overlay" id="end" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <div class="endTop">
+      <p class="eyebrow">Balade terminée ! Votre score</p>
+      <div id="final">0 <span>/ 100</span></div>
+      <h2 id="level"></h2>
+      <p id="levelTxt"></p>
+      <div id="breakdown">
+        <div><b id="bOk" style="color:#33512e">0</b><span>décisions justes</span></div>
+        <div><b id="bZero" style="color:#8a7a3c">0</b><span>comestibles laissés par prudence</span></div>
+        <div><b id="bKo" style="color:#b3301c">0</b><span>intoxications</span></div>
+      </div>
+    </div>
+
+    <div class="party" id="party">
+      <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <p class="kicker">Maintenant, place au vrai terrain !</p>
+      <p class="lead">L'écran vous a appris les bons réflexes. Rien ne remplace pourtant une vraie loupe, une vraie odeur et un vrai spécimen entre les doigts.</p>
+      <div class="dateRow" id="dateRow">
+        <div class="cal" aria-hidden="true"><div class="calRings"><i></i><i></i></div><div class="calMonth">Octobre</div><div class="calDay">13</div></div>
+        <div class="dateTxt">
+          <span class="rdv">Rendez-vous le</span>
+          <span class="bigDate" id="bigDate">13 octobre</span>
+          <span class="expoName">Exposition botanique &amp; mycologique</span>
+        </div>
+      </div>
+      <ul class="expoList">
+        <li><em>🔍</em><span>Manipulez de vraies loupes de terrain et observez les détails au microscope</span></li>
+        <li><em>👃</em><span>Sentez les essences réelles (farine, anis, ail) guidés par nos experts</span></li>
+        <li><em>💬</em><span>Échangez avec nos pharmaciens et mycologues pour cueillir en toute sécurité</span></li>
+      </ul>
+      <div class="dancefloor" id="dancefloor" aria-hidden="true"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-main" id="replayBtn">Refaire une promenade</button>
+      <button class="btn btn-leave" id="reviewBtn">Revoir mes erreurs</button>
+    </div>
+    <div id="review" hidden></div>
+  </div>
+</section>
+
+<canvas id="confetti" hidden></canvas>
+
+<script src="js/draw.js"></script>
+<script src="js/art.js"></script>
+<script src="js/cuts.js"></script>
+<script src="js/data.js"></script>
+<script src="js/basket.js"></script>
+<script src="js/scene.js"></script>
+<script src="js/finale.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

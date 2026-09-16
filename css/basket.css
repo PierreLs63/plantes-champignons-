@@ -1,0 +1,53 @@
+/* ---------- Panier en osier ---------- */
+#basket{position:fixed;left:50%;bottom:0;z-index:12;width:210px;transform:translate(-50%,34%);
+  transition:transform .55s cubic-bezier(.3,1.35,.5,1)}
+#basket.open{transform:translate(-50%,4%)}
+#basket.hidden{transform:translate(-50%,150%);transition-timing-function:ease-in}
+#basketBtn{position:relative;display:block;width:100%;aspect-ratio:240/180;background:none;padding:0;
+  filter:drop-shadow(0 10px 14px rgba(0,0,0,.45))}
+#basketBtn:active{transform:none}
+#basketBtn > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#bItems{position:absolute;left:10%;right:10%;top:0;height:62%;pointer-events:none}
+.bIt{position:absolute;bottom:0;width:48%;aspect-ratio:1;transform:translateX(-50%) rotate(var(--r));transform-origin:50% 90%}
+.bIt svg{width:100%;height:100%;display:block;filter:drop-shadow(0 3px 3px rgba(0,0,0,.35))}
+.bIt.new{animation:dropIn .7s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes dropIn{from{transform:translateX(-50%) translateY(-50px) rotate(var(--r)) scale(.5);opacity:0}}
+#bCount{position:absolute;right:2%;top:10%;z-index:3;min-width:30px;height:30px;padding:0 8px;border-radius:15px;
+  background:var(--amber);color:#3a2605;font-weight:800;font-size:15px;display:grid;place-items:center;
+  box-shadow:0 3px 8px rgba(0,0,0,.35),inset 0 0 0 2px #fff3d0}
+#bTag{position:absolute;left:50%;top:67%;transform:translateX(-50%);z-index:3;white-space:nowrap;
+  font-family:var(--serif);font-style:italic;font-size:14px;color:#fff3d6;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+#bTag b{display:inline-block;margin-left:4px;transition:transform .4s}
+#basket.open #bTag b{transform:rotate(180deg)}
+#basket.bump #basketBtn{animation:bump .55s}
+@keyframes bump{30%{transform:scale(1.12,.88)}60%{transform:scale(.95,1.06)}}
+
+#tray{position:absolute;left:50%;bottom:calc(100% - 30px);width:min(calc(100vw - 32px),440px);
+  transform:translateX(-50%);background:var(--paper);border-radius:20px;box-shadow:0 22px 50px rgba(0,0,0,.5);
+  padding:0 14px 40px;max-height:min(62vh,540px);display:flex;flex-direction:column;overflow:hidden;
+  clip-path:inset(100% 0 0 0 round 20px);opacity:0;pointer-events:none;
+  transition:clip-path .55s cubic-bezier(.2,.8,.2,1),opacity .25s}
+#basket.open #tray{clip-path:inset(0 0 0 0 round 20px);opacity:1;pointer-events:auto}
+.trayHead{display:flex;justify-content:space-between;align-items:baseline;margin:0 -14px 12px;padding:14px 18px 12px;color:#fff3d6;
+  background:repeating-linear-gradient(45deg,#b27a3c 0 7px,#94602c 7px 14px),#a06a32;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+.trayHead h3{font-size:22px;font-style:italic;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+#trayCount{font-size:14px;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+#trayList{list-style:none;margin:0;padding:0;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:8px}
+#trayList li{display:flex;align-items:center;gap:12px;background:#f2f4e8;border-radius:13px;padding:6px 14px 6px 6px}
+#trayList .th{width:56px;height:56px;border-radius:10px;background:radial-gradient(circle at 50% 60%,#6d8c5c,#2c4527);flex:none}
+#trayList .th svg{width:100%;height:100%;display:block}
+#trayList .nm{flex:1;min-width:0;line-height:1.25}
+#trayList .nm b{display:block;font-size:15.5px}
+#trayList .nm i{font-family:var(--serif);font-size:14px;color:#5c6a54}
+#trayList em{font-style:normal;font-family:var(--serif);font-weight:600;font-size:20px;text-align:right;color:var(--moss2)}
+#trayList small{display:block;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+#trayList li.bad{background:#fbe8e2}
+#trayList li.bad em{color:var(--alert)}
+#trayList li.empty{font-style:italic;color:#6b7663;padding:14px;line-height:1.45}
+.flyer{position:fixed;z-index:14;pointer-events:none}
+.flyer svg{width:100%;height:100%;display:block;filter:drop-shadow(0 12px 14px rgba(0,0,0,.45))}
+@media (max-width:600px){
+  #basket{width:152px;transform:translate(-50%,42%)}
+  #basket.open{transform:translate(-50%,6%)}
+  #bTag{font-size:12.5px}
+}

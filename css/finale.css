@@ -1,0 +1,112 @@
+/* ---------- Bilan & fête finale ---------- */
+#end .sheet{max-width:780px;padding:0;overflow:hidden;background:var(--mist)}
+.endTop{padding:34px 38px 26px}
+#end .eyebrow{font-family:var(--serif);font-style:italic;color:#5c6a54;font-size:18px;margin:0}
+#final{font-size:60px;font-family:var(--serif);font-weight:600;line-height:1;margin:6px 0 2px}
+#final span{font-size:24px;color:#6b7663}
+#level{font-family:var(--serif);font-size:30px;margin:14px 0 6px}
+#levelTxt{font-size:17px;line-height:1.5;margin:0 0 22px;color:#3d4a38}
+#breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#breakdown div{background:var(--paper);border-radius:14px;padding:15px}
+#breakdown b{display:block;font-family:var(--serif);font-size:34px;line-height:1}
+#breakdown span{font-size:14px;color:#4a5842}
+
+.party{position:relative;overflow:hidden;color:#fdf7e6;padding:36px 38px 0;
+  background:radial-gradient(120% 70% at 50% 0%,#3d6130 0%,#1b2d15 55%,#0e180b 100%)}
+.lights{position:absolute;inset:0;pointer-events:none}
+.lights i{position:absolute;top:-10%;left:var(--x);width:44%;height:130%;margin-left:-22%;transform-origin:50% 0;
+  background:linear-gradient(to bottom,var(--c),transparent 75%);opacity:.2;filter:blur(10px);
+  clip-path:polygon(46% 0,54% 0,100% 100%,0 100%);animation:beam var(--d) ease-in-out infinite alternate}
+.lights i:nth-child(1){--x:12%;--c:#ffc53d;--d:3.6s}
+.lights i:nth-child(2){--x:38%;--c:#ff5fa2;--d:4.4s;animation-direction:alternate-reverse}
+.lights i:nth-child(3){--x:64%;--c:#5fe0a0;--d:3.9s}
+.lights i:nth-child(4){--x:90%;--c:#b48cff;--d:4.8s;animation-direction:alternate-reverse}
+@keyframes beam{from{transform:rotate(-28deg)}to{transform:rotate(28deg)}}
+.kicker{position:relative;font-family:var(--serif);font-style:italic;font-size:21px;color:#ffd37a;margin:0 0 6px}
+.party .lead{position:relative;font-family:var(--serif);font-size:19px;line-height:1.5;margin:0 0 24px;color:#e9efd9}
+
+.dateRow{position:relative;display:flex;align-items:center;gap:28px;padding:24px 26px;border-radius:24px;cursor:pointer;
+  background:linear-gradient(135deg,rgba(255,197,61,.14),rgba(255,95,162,.1) 50%,rgba(95,224,160,.12));
+  border:1.5px solid rgba(255,211,122,.45);box-shadow:0 0 50px rgba(255,184,48,.2),inset 0 0 40px rgba(255,184,48,.12)}
+.dateRow::before{content:"";position:absolute;inset:-2px;border-radius:26px;padding:2px;pointer-events:none;
+  background:conic-gradient(from var(--a,0deg),#ffc53d,#ff5fa2,#b48cff,#5fe0a0,#ffc53d);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  animation:spinBorder 4s linear infinite;opacity:.9}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes spinBorder{to{--a:360deg}}
+.party.pop .dateRow{animation:popIn .9s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes popIn{0%{transform:scale(.7) rotate(-3deg);opacity:0}100%{transform:none;opacity:1}}
+
+.cal{flex:none;width:122px;background:#fffdf4;border-radius:14px;overflow:visible;position:relative;color:#2a1d10;text-align:center;
+  box-shadow:0 14px 26px rgba(0,0,0,.5);transform-origin:50% -8px;animation:swing 2.4s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+.calRings{position:absolute;top:-9px;left:0;right:0;display:flex;justify-content:space-around;z-index:2}
+.calRings i{width:10px;height:22px;border-radius:5px;background:linear-gradient(90deg,#8a8a8a,#f4f4f4,#8a8a8a);box-shadow:0 2px 3px rgba(0,0,0,.4)}
+.calMonth{background:linear-gradient(#ea5a42,#b3301c);color:#fff;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  font-size:14px;padding:18px 0 7px;border-radius:14px 14px 0 0}
+.calDay{font-family:var(--serif);font-size:68px;font-weight:700;line-height:1;padding:8px 0 12px;
+  background:repeating-linear-gradient(#fffdf4 0 22px,#f1ecdc 22px 23px);border-radius:0 0 14px 14px}
+
+.dateTxt{display:flex;flex-direction:column;min-width:0}
+.rdv{font-size:14px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#cfe3b0}
+.bigDate{font-family:var(--serif);font-weight:700;font-size:clamp(44px,8.6vw,80px);line-height:1.04;margin:4px 0 8px;white-space:nowrap}
+.bigDate .ch{display:inline-block;animation:jump 1.8s ease-in-out infinite,cc 3.2s linear infinite;
+  animation-delay:calc(var(--i) * .09s),calc(var(--i) * -.25s);text-shadow:0 0 22px currentColor,0 5px 0 rgba(0,0,0,.35)}
+.bigDate .sp{display:inline-block;width:.26em}
+@keyframes jump{0%,45%,100%{transform:translateY(0) rotate(0)}22%{transform:translateY(-.2em) rotate(-5deg) scale(1.08)}}
+@keyframes cc{0%,100%{color:#ffc53d}20%{color:#ff7a45}40%{color:#ff5fa2}60%{color:#b48cff}80%{color:#5fe0a0}}
+.expoName{font-size:19px;font-weight:700;color:#fff}
+
+.expoList{position:relative;list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}
+.expoList li{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.08);border-radius:14px;padding:12px 16px;font-size:16px;line-height:1.4}
+.expoList em{font-style:normal;font-size:25px}
+
+.dancefloor{position:relative;height:190px;margin:22px -38px 0;display:flex;justify-content:center;align-items:flex-end;gap:1%;
+  padding:0 4% 12px;overflow:hidden;
+  background:linear-gradient(to top,rgba(0,0,0,.2),transparent 70%),
+    conic-gradient(#2a4a24 25%,#3f6a33 0 50%,#2a4a24 0 75%,#3f6a33 0) 0 100%/34px 34px}
+.dancefloor::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(255,197,61,.35),transparent 60%);
+  animation:floorGlow 1.2s ease-in-out infinite alternate}
+@keyframes floorGlow{from{opacity:.4}to{opacity:1}}
+.dancer{position:relative;width:17%;max-width:104px;transform-origin:50% 100%;cursor:pointer;overflow:visible;
+  filter:drop-shadow(0 8px 6px rgba(0,0,0,.4))}
+.d0{animation:bop .46s ease-in-out infinite alternate}
+.d1{animation:sway 1s ease-in-out infinite}
+.d2{animation:flip 2.6s cubic-bezier(.3,.7,.4,1) infinite}
+.d3{animation:sway 1s ease-in-out infinite reverse,bop .5s ease-in-out infinite alternate}
+.d4{animation:groove .92s ease-in-out infinite}
+@keyframes bop{from{transform:translateY(0) scale(1.04,.95)}to{transform:translateY(-16px) scale(.97,1.05)}}
+@keyframes sway{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(13deg) translateY(-10px)}}
+@keyframes flip{0%,55%{transform:translateY(0)}65%{transform:translateY(4px) scale(1.12,.84)}82%{transform:translateY(-78px) rotate(360deg)}94%{transform:translateY(0) rotate(360deg) scale(1.1,.9)}100%{transform:rotate(360deg)}}
+@keyframes groove{0%,100%{transform:translateX(0) skewX(0)}25%{transform:translateX(-8px) skewX(10deg)}75%{transform:translateX(8px) skewX(-10deg)}}
+.dancer.yay{animation:yay .7s cubic-bezier(.3,1.5,.5,1)}
+@keyframes yay{50%{transform:translateY(-60px) scale(1.2) rotate(-12deg)}}
+.dancer .arm{transform-box:fill-box;animation:wave .42s ease-in-out infinite alternate}
+.dancer .arm.l{transform-origin:100% 100%}
+.dancer .arm.r{transform-origin:0 100%;animation-delay:-.21s}
+@keyframes wave{from{transform:rotate(-35deg)}to{transform:rotate(30deg)}}
+.dancer .foot{transform-box:fill-box;transform-origin:50% 50%;animation:tap .46s ease-in-out infinite alternate}
+.dancer .foot.r{animation-delay:-.23s}
+@keyframes tap{to{transform:translateY(-4px) rotate(-12deg)}}
+.dancer .eyes{transform-box:fill-box;transform-origin:50% 50%;animation:blink 3.2s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.mnote{position:absolute;bottom:34%;font-size:24px;color:#ffd37a;opacity:0;animation:floatUp 3.6s ease-out infinite;pointer-events:none}
+.mnote:nth-child(odd){color:#ff9fc6}
+@keyframes floatUp{0%{transform:translateY(0) rotate(-10deg);opacity:0}15%{opacity:1}100%{transform:translateY(-130px) rotate(25deg);opacity:0}}
+
+#end .actions{display:flex;gap:12px;padding:26px 38px 30px}
+#review{padding:0 38px 32px;font-size:16px;line-height:1.6}
+#review h3{margin-bottom:10px}
+#review p{margin:0 0 12px}
+#review span{color:#6b7663}
+#confetti{position:fixed;inset:0;width:100%;height:100%;z-index:30;pointer-events:none}
+
+@media (max-width:860px),(orientation:portrait){
+  .endTop,.party{padding-left:22px;padding-right:22px}
+  #end .actions{padding:22px;flex-direction:column}
+  #review{padding:0 22px 26px}
+  #breakdown{grid-template-columns:1fr}
+  #final{font-size:48px}
+  .dateRow{flex-direction:column;text-align:center;gap:20px;padding:30px 18px 22px}
+  .dancefloor{margin:22px -22px 0;height:160px}
+}

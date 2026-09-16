@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Galerie des dessins</title>
+<style>body{margin:0;background:#1c2f1d;font-family:sans-serif;color:#eee}
+.g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px}
+.g.one{grid-template-columns:repeat(2,1fr)}
+.c{background:radial-gradient(circle at 50% 58%,#638654,#1f331c 80%);aspect-ratio:1;position:relative;border-radius:8px}
+.c svg{width:100%;height:100%}.c b{position:absolute;left:6px;top:4px;font-size:12px;z-index:2}</style></head>
+<body><div class="g" id="g"></div>
+<script>
+/* chargement anti-cache : on recharge toujours la dernière version des dessins */
+const v=Date.now();
+['draw','art','cuts','data'].reduce((p,f)=>p.then(()=>new Promise(res=>{
+  const s=document.createElement('script');s.src=`../js/${f}.js?v=${v}`;s.onload=res;document.head.appendChild(s)})),Promise.resolve())
+.then(()=>{
+  const only=location.hash.slice(1),g=document.getElementById('g');
+  if(only)g.classList.add('one');
+  g.innerHTML=S.filter(s=>!only||s.k===only).map(s=>
+    `<div class="c"><b>${s.k}</b>${svgOf(ART,s.k)}</div><div class="c"><b>coupe</b>${svgOf(CUT,s.k)}</div>`).join('');
+});
+</script></body></html>
