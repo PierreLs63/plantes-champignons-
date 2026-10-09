@@ -20,7 +20,7 @@ const S=[
  t:{odorat:'Aucune odeur au froissage, odeur végétale neutre.',
     loupe:'Feuille rigide, sans pétiole, qui s\'enroule autour de la tige centrale.',
     coupe:'Tissu épais et gorgé d\'eau.',
-    habitat:'Prairies et pâturages humides. Fleurit en automne, sans feuilles.'},
+    habitat:'Prairies et pâturages humides. Fleurit seulement en automne et sans feuille, jolies fleurs roses à 6 tépales !'},
  ok:{t:'Juste',s:'Intoxication évitée',m:'Sans odeur d\'ail ni pétiole, c\'était un piège.'},
  ko:{t:'Erreur grave',s:'Mortel',m:'Colchique d\'automne ! Sa colchicine est mortelle dès 50 g de feuilles.'},
  why:'Feuille rigide engainante, sans pétiole et sans odeur : trois signaux qui excluent l\'ail des ours.'},

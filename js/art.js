@@ -55,25 +55,8 @@ ART.ail=(()=>{
 ART.colchique=(()=>{
   const prof=t=>t<.12?.62+.38*(t/.12):t<.8?1:Math.sqrt(Math.max(0,1-Math.pow((t-.8)/.2,2)));
   const defs=`<defs>${LG('lt',[[0,'#8fce6c'],[1,'#2f7a2e']],0,0,1,1)}${LG('dk',[[0,'#3f8a36'],[1,'#164d1a']],0,0,1,1)}
-    ${RG('cap',[[0,'#c4d884'],[.55,'#6d8c3c'],[1,'#3c5522']],.36,.3,.7)}${LG('sh',[[0,'#e7ecd0'],[.5,'#c5d3a0'],[1,'#8ea468']],0,0,1,0)}
-    ${LG('tpF',[[0,'#e9b8e0'],[.55,'#c77cc0'],[1,'#f4e6f0']],0,0,0,1)}${LG('tpB',[[0,'#b86aae'],[.6,'#95488e'],[1,'#d9b4d4']],0,0,0,1)}
-    ${LG('tube',[[0,'#fbf6f4'],[.5,'#ece3e6'],[1,'#c9bcc2']],0,0,1,0)}</defs>`;
-  /* Fleur : coupe à 6 tépales (3 derrière, 3 devant), étamines orangées, long tube blanc sortant du sol */
-  const tepal=(x,y,a,len,w,fill)=>`<path transform="translate(${x} ${y}) rotate(${a})" d="M0 0C${-w} ${r1(-len*.25)} ${r1(-w*1.05)} ${r1(-len*.8)} 0 ${-len}C${r1(w*1.05)} ${r1(-len*.8)} ${w} ${r1(-len*.25)} 0 0Z" fill="${fill}" stroke="#7a3a74" stroke-width=".5"/>
-    <path transform="translate(${x} ${y}) rotate(${a})" d="M0 -2L0 ${r1(-len*.85)}" stroke="#a5579d" stroke-width=".6" opacity=".6"/>`;
-  /* le tube part du cœur de la touffe (caché par la gaine) et s'arque vers la fleur */
-  const flower=(bx,x,y,s,lean)=>{const tube=`M${bx} 270C${bx} ${r1(y+50)} ${r1(x-lean*.3)} ${r1(y+34)} ${x} ${y}`;
-    return `<path d="${tube}" fill="none" stroke="#9aa79a" stroke-width="${r1(4.4*s+1)}" stroke-linecap="round"/>
-    <path d="${tube}" fill="none" stroke="${U('tube')}" stroke-width="${r1(4.4*s)}" stroke-linecap="round"/>
-    <path d="${tube}" transform="translate(-.8 0)" fill="none" stroke="#fff" stroke-width=".9" opacity=".6"/>
-    <g transform="translate(${x} ${y}) rotate(${r1(lean*.6)}) scale(${s})">
-      ${tepal(0,4,-24,40,9,U('tpB'))}${tepal(0,4,22,40,9,U('tpB'))}${tepal(0,4,0,42,10,U('tpB'))}
-      ${rep(6,i=>`<path d="M${-5+i*2} -6L${-7+i*2.8} -22" stroke="#e8dcc0" stroke-width=".8"/><ellipse cx="${-7+i*2.8}" cy="-23.5" rx="1.1" ry="2.4" fill="#e89a2a"/>`)}
-      <path d="M0 -4L0 -28" stroke="#f3eee8" stroke-width=".7"/>
-      ${tepal(-1,4,-12,36,10,U('tpF'))}${tepal(1,4,12,36,10,U('tpF'))}${tepal(0,5,0,30,8.5,U('tpF'))}
-      <path d="M-14 -24C-10 -30 -6 -32 -2 -32" fill="none" stroke="#fff" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
-      <path d="M-5 4C-3 8 3 8 5 4L4 -2L-4 -2Z" fill="#e6dce2"/>
-    </g>`};
+    ${RG('cap',[[0,'#eaeaa2'],[.5,'#bcbf64'],[1,'#7d8438']],.36,.3,.7)}${LG('sh',[[0,'#e7ecd0'],[.5,'#c5d3a0'],[1,'#8ea468']],0,0,1,0)}
+</defs>`;
   const leaf=(a,len,w,bend,bx)=>{const g=leafGeo(len,w,bend,prof,26,.5);
     return `<g transform="translate(${bx} 282) rotate(${a})">${leafSVG(g,{lt:U('lt'),dk:U('dk'),veins:[.18,.36,.54,.72,.88],vein:'#12400f',vo:.3,vw:.7,edge:'#0f3a10',rib:'#0f3d10',ribw:1.8})}
       <path d="${g.line(1,.1,.05,.95)}" fill="none" stroke="#b6e79a" stroke-width="1" opacity=".45"/></g>`};
@@ -83,15 +66,51 @@ ART.colchique=(()=>{
   <path d="M150 262L150 214" stroke="#9fb46a" stroke-width="5"/>
   <g transform="translate(150 190)">
     <path d="M0 -32C15 -32 21 -15 21 3C21 19 12 27 0 27C-12 27 -21 19 -21 3C-21 -15 -15 -32 0 -32Z" fill="${U('cap')}" filter="${U('grain')}"/>
-    <path d="M-7 -31C-12 -12 -11 12 -4 26M8 -31C12 -11 12 12 5 26" fill="none" stroke="#3a5222" stroke-width="1.1" opacity=".6"/>
-    <path d="M-13 -18C-17 -6 -16 8 -12 16" fill="none" stroke="#e3efb2" stroke-width="3" opacity=".45" filter="${U('b1')}"/>
-    <path d="M-2 -32l-3 -7M0 -32l0 -8M2 -32l3 -7" stroke="#6a5a30" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M-7 -31C-12 -12 -11 12 -4 26M8 -31C12 -11 12 12 5 26" fill="none" stroke="#6a6a2a" stroke-width="1.4" opacity=".7"/>
+    <path d="M0 -30C3 -10 3 10 0 26" fill="none" stroke="#8a8a3a" stroke-width="1" opacity=".45"/>
+    <path d="M-7 -30C-10 -22 -11 -14 -10 -8" fill="none" stroke="#4a4a18" stroke-width="2.4" opacity=".55" filter="${U('b1')}"/>
+    <path d="M-13 -18C-17 -6 -16 8 -12 16" fill="none" stroke="#f2f3c6" stroke-width="3" opacity=".5" filter="${U('b1')}"/>
+    <path d="M-3 -31l-4 -9M0 -32l0 -10M3 -31l4 -9" stroke="#8a7a3a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
   </g>
   ${leaf(-19,188,24,-20,144)}${leaf(22,182,23,18,156)}
-  ${flower(143,112,192,1.1,-8)}${flower(147,130,222,.85,-3)}${flower(157,188,198,1.05,8)}
   <path d="M130 286C130 268 136 252 142 246L158 246C164 252 170 268 170 286Z" fill="${U('sh')}"/>
   <path d="M132 272C142 262 158 256 168 258M134 282C146 270 160 268 169 270M140 250C146 256 156 258 162 250" fill="none" stroke="#7f955a" stroke-width="1" opacity=".7"/>
   ${G(grass(44,150,290,110,34,24,['#7aa54a','#94bd5a','#5f8c36']))}`;
+})();
+
+/* ---------------------------------------------------------------------
+   VIGNETTES D'INDICE — illustration jointe à une note du carnet
+   Colchique en fleur : à l'automne, 6 tépales roses et aucune feuille
+   --------------------------------------------------------------------- */
+const VIG={},VIGCAP={colchique_habitat:'À l’automne, le colchique fleurit seul : 6 tépales roses, sans la moindre feuille.'};
+VIG.colchique_habitat=(()=>{
+  /* Fleur : coupe à 6 tépales (3 derrière, 3 devant), étamines orangées, long tube blanc sortant du sol */
+  const tepal=(x,y,a,len,w,fill)=>`<path transform="translate(${x} ${y}) rotate(${a})" d="M0 0C${-w} ${r1(-len*.25)} ${r1(-w*1.05)} ${r1(-len*.8)} 0 ${-len}C${r1(w*1.05)} ${r1(-len*.8)} ${w} ${r1(-len*.25)} 0 0Z" fill="${fill}" stroke="#7a3a74" stroke-width=".5"/>
+    <path transform="translate(${x} ${y}) rotate(${a})" d="M0 -2L0 ${r1(-len*.85)}" stroke="#a5579d" stroke-width=".6" opacity=".6"/>`;
+  /* le tube part du cœur de la touffe (caché par la gaine) et s'arque vers la fleur */
+  const flower=(bx,x,y,s,lean)=>{const tube=`M${bx} 270C${bx} ${r1(y+50)} ${r1(x-lean*.3)} ${r1(y+34)} ${x} ${y}`;
+    return `<path d="${tube}" fill="none" stroke="#9aa79a" stroke-width="${r1(4.4*s+1)}" stroke-linecap="round"/>
+    <path d="${tube}" fill="none" stroke="${U('tube')}" stroke-width="${r1(4.4*s)}" stroke-linecap="round"/>
+    <path d="${tube}" transform="translate(-.8 0)" fill="none" stroke="#fff" stroke-width=".9" opacity=".6"/>
+    <g transform="translate(${x} ${y}) rotate(${r1(lean*.6)}) scale(${s})">
+      ${tepal(0,3,-62,43,9.5,U('tpB'))}${tepal(0,3,62,43,9.5,U('tpB'))}${tepal(0,1,0,45,10,U('tpB'))}
+      ${rep(6,i=>`<path d="M${-5+i*2} -6L${-7+i*2.8} -22" stroke="#e8dcc0" stroke-width=".8"/><ellipse cx="${-7+i*2.8}" cy="-23.5" rx="1.1" ry="2.4" fill="#e89a2a"/>`)}
+      <path d="M0 -4L0 -28" stroke="#f3eee8" stroke-width=".7"/>
+      ${tepal(-2,5,-34,39,10.5,U('tpF'))}${tepal(2,5,34,39,10.5,U('tpF'))}${tepal(0,7,8,23,9,U('tpF'))}
+      <path d="M-14 -24C-10 -30 -6 -32 -2 -32" fill="none" stroke="#fff" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>
+      <path d="M-5 4C-3 8 3 8 5 4L4 -2L-4 -2Z" fill="#e6dce2"/>
+    </g>`};
+  const mound=x=>`<ellipse cx="${x}" cy="287" rx="16" ry="5" fill="#4a3a1c" opacity=".55" filter="${U('b2')}"/>`;
+  return `<defs>${LG('tpF',[[0,'#e9b8e0'],[.55,'#c77cc0'],[1,'#f4e6f0']],0,0,0,1)}${LG('tpB',[[0,'#b86aae'],[.6,'#95488e'],[1,'#d9b4d4']],0,0,0,1)}
+    ${LG('tube',[[0,'#fbf6f4'],[.5,'#ece3e6'],[1,'#c9bcc2']],0,0,1,0)}</defs>
+  ${G(grass(5,150,288,138,44,20,['#8a9a52','#a3ac5e','#6f8440','#b5b06a'])+litter(23,150,288,118,12,false)
+    +mound(150)+mound(226)+mound(74))}
+  <g transform="translate(0 17)">
+    ${flower(226,232,196,1.15,8)}
+    ${flower(74,68,214,.95,-9)}
+    ${flower(150,150,128,1.95,-3)}
+  </g>
+  ${G(grass(9,150,292,128,24,14,['#7f9048','#99a257']))}`;
 })();
 
 /* ---------------------------------------------------------------------
@@ -202,11 +221,6 @@ ART.gyromitre=(()=>{
     body+=`<path d="${d}" stroke-width="${w}" stroke="${['#3e1a0e','#4a2314','#351509'][Math.floor(R()*3)]}"/>`;
     hl+=`<path d="${d}" stroke-width="${r1(w*.3)}"/>`;
   });
-  /* Hyménium : face inférieure crème, lisse à micro-ridules radiales */
-  const hc=[cx+2,171];
-  const hp=[];for(let i=0;i<40;i++){const a=i/40*Math.PI*2;hp.push([hc[0]+Math.cos(a)*44*(1+.05*Math.sin(5*a+.6)),hc[1]+Math.sin(a)*11*(1+.08*Math.sin(3*a))])}
-  const ridules=rep(34,i=>{const a=.12+i/33*(Math.PI-.24),x=hc[0]+Math.cos(a)*41,y=hc[1]+Math.sin(a)*10;
-    return `<path d="M${r1(hc[0]+Math.cos(a)*20)} ${r1(hc[1]+Math.sin(a)*4.5)}L${r1(x)} ${r1(y)}" stroke="#bfae84" stroke-width=".6" opacity=".6"/>`});
   /* Pied : fin, légèrement renflé, évasé sous le chapeau, rosé à la base */
   const sw=y=>{const t=(y-164)/112;return 25-9*Math.min(1,t/.3)**.8+3*Math.sin(Math.PI*Math.max(0,(t-.3)/.7))+(t>.88?(t-.88)*30:0)};
   const sL=[],sR=[];for(let y=164;y<=276;y+=6){const lean=Math.sin((y-164)/112*2.4)*3;sL.push([cx-sw(y)+lean,y]);sR.push([cx+sw(y)+lean,y])}
@@ -215,22 +229,18 @@ ART.gyromitre=(()=>{
   return `<defs>${RG('cap',[[0,'#a4633f'],[.45,'#84472a'],[.8,'#62301a'],[1,'#3e1c0d']],.4,.34,.72)}
     ${LG('margin',[[0,'#c9b8a0',0],[.62,'#c9b8a0',0],[.86,'#bfae96',.38],[1,'#d8cbb4',.62]],0,0,0,1)}
     ${LG('vol',[[0,'#ffe8d0',.26],[.36,'#fff',0],[.62,'#000',0],[1,'#0e0402',.6]],0,0,1,.55)}
-    ${RG('hym',[[0,'#8d7c5c'],[.3,'#d6c69c'],[.6,'#f1e7c4'],[1,'#fbf5de']],.5,.2,.75)}
+    ${LG('shTop',[[0,'#3a2412',.5],[.22,'#3a2412',0]])}
     ${LG('stem',[[0,'#fbf7ee'],[.35,'#efe7d8'],[.75,'#d6cbb8'],[1,'#a99c88']],0,0,1,0)}
     ${LG('pink',[[0,'#e6b4aa',0],[.7,'#e0aca2',0],[1,'#d8a39a',.55]],0,0,0,1)}
     <clipPath id="§clip"><path d="${gyroCap}"/></clipPath></defs>
   ${G(`<ellipse cx="150" cy="286" rx="122" ry="17" fill="#3a2a16" opacity=".6" filter="${U('b5')}"/><ellipse cx="150" cy="284" rx="104" ry="11" fill="#b99a6a" opacity=".55" filter="${U('b2')}"/>`+
     rep(70,i=>{const R2=rng(i*7+1),x=40+R2()*220,y=276+R2()*16,a=R2()*3.14,l=8+R2()*8;return `<path d="M${r1(x)} ${r1(y)}l${r1(Math.cos(a)*l)} ${r1(Math.sin(a)*l*.35)}" stroke="${['#9a6a3a','#b88a52','#7a5028'][i%3]}" stroke-width="1"/>`})+
     `<g transform="translate(238 270) rotate(-18)"><ellipse rx="18" ry="11" fill="#6b4524"/>${rep(12,i=>`<path d="M${-15+i*2.6} ${i%2?-8:-4}q3 -3 6 0q-3 6 -6 0" fill="#8a5c30" stroke="#4a2c12" stroke-width=".6"/>`)}</g>`)}
-  <path d="${smooth(hp)}" fill="${U('hym')}" filter="${U('grain')}"/>
-  ${ridules}
-  <ellipse cx="${hc[0]}" cy="${hc[1]+2}" rx="26" ry="6" fill="#4a3620" opacity=".5" filter="${U('b2')}"/>
-  <path d="${smooth(hp)}" fill="none" stroke="#a8966c" stroke-width=".9" opacity=".8"/>
   <path d="${stem}" fill="${U('stem')}" filter="${U('fiber')}"/>
   <path d="${stem}" fill="${U('pink')}"/>
   ${grooves}
   <path d="M${cx-7} 190C${cx-9} 218 ${cx-7} 246 ${cx-5} 268" fill="none" stroke="#fff" stroke-width="4" opacity=".35" filter="${U('b1')}"/>
-  <path d="M${cx-26} 172Q${cx} 186 ${cx+28} 172L${cx+26} 166Q${cx} 174 ${cx-24} 166Z" fill="#5a4630" opacity=".45" filter="${U('b2')}"/>
+  <path d="${stem}" fill="${U('shTop')}"/>
   <path d="${stem}" fill="none" stroke="#8f826c" stroke-width=".9" opacity=".6"/>
   <path d="${gyroCap}" fill="${U('cap')}" filter="${U('grain')}"/>
   <g clip-path="url(#§clip)">

@@ -29,7 +29,8 @@ function useTool(k,btn){
   let li=notes.querySelector(`li[data-t="${k}"]`);
   if(!li){
     state.used[k]=1;btn.classList.add('used');notes.querySelector('.ph')?.remove();
-    notes.insertAdjacentHTML('beforeend',`<li data-t="${k}"><em>${e}</em><span><span class="k">${n}</span><b>${s.t[k]}</b></span></li>`);
+    const vk=s.k+'_'+k,vig=VIG[vk]?`<figure class="vig">${svgOf(VIG,vk,{lite:true})}<figcaption>${VIGCAP[vk]||''}</figcaption></figure>`:'';
+    notes.insertAdjacentHTML('beforeend',`<li data-t="${k}"><em>${e}</em><span><span class="k">${n}</span><b>${s.t[k]}</b>${vig}</span></li>`);
     li=notes.lastElementChild;noteCount();
   }
   notes.querySelectorAll('li.cur').forEach(x=>x.classList.remove('cur'));li.classList.add('cur');

@@ -102,8 +102,8 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;line-height:1.15}
 .waft{position:absolute;width:90px;height:90px;border-radius:50%;border:2px solid rgba(252,252,245,.35);
   animation:waft 3.4s ease-out infinite}
 @keyframes waft{0%{transform:scale(.2);opacity:.7}100%{transform:scale(2.4);opacity:0}}
-#stageCap{position:absolute;z-index:2;left:0;right:0;bottom:12px;text-align:center;color:var(--paper);font-size:14px;
-  pointer-events:none;opacity:.92;text-shadow:0 1px 4px rgba(0,0,0,.7);padding:0 16px}
+#stageCap{position:absolute;z-index:2;left:14px;right:14px;bottom:10px;text-align:center;color:var(--paper);font-size:13.5px;line-height:1.35;pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.6);padding:7px 14px;border-radius:15px;background:rgba(16,26,16,.58)}
+#stageCap:empty{display:none}
 
 #panel{padding:24px 24px 0;display:flex;flex-direction:column;min-width:0;min-height:0}
 #panel .eyebrow{font-family:var(--serif);font-style:italic;color:#5c6a54;font-size:17px;margin:0 0 2px}
@@ -130,6 +130,9 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;line-height:1.15}
 #notes li.ph{color:#5f6b56;font-style:italic;background:#f7f8f0;box-shadow:inset 0 0 0 1.5px #ccd4bd}
 #notes em{font-style:normal;font-size:19px}
 #notes .k{display:block;font-size:12.5px;color:#6b7663;margin-bottom:1px}
+#notes .vig{margin:10px 0 2px;padding:0}
+#notes .vig svg{display:block;width:100%;max-width:170px;border-radius:12px;background:radial-gradient(circle at 50% 62%,#6d8c5c,#2c4527)}
+#notes .vig figcaption{margin-top:5px;font-size:12.5px;line-height:1.35;font-style:italic;color:#6b7663;max-width:280px}
 #notesMore{position:absolute;right:8px;bottom:8px;width:34px;height:34px;border-radius:50%;background:var(--moss);color:var(--paper);
   font-size:17px;display:grid;place-items:center;box-shadow:0 4px 10px rgba(0,0,0,.25);animation:nudge 1.4s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(3px)}}
